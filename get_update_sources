@@ -15,7 +15,11 @@ if [[ $? != 0 ]]; then
     echo ""
     exit 1
 fi
+
+echo " Removing mbedtls and jsmn no necesary files."
 rm -rf ./uTLGBotLib/lib/multihttpsclient/mbedtls
+rm -rf ./uTLGBotLib/lib/jsmn/example
+rm -rf ./uTLGBotLib/lib/jsmn/test
 
 echo " Copying specific sources files into expected locations..."
 rm -rf ../Arduino_uTLGBotLib/src/*
