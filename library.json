@@ -1,0 +1,16 @@
+{
+	"name": "uTLGBotLib",
+	"keywords": "esp8266, esp32, telegram, bot",
+	"description": "Arduino specific library for ESP8266 and ESP32 that allow create Telegram Bots.",
+	"authors": {
+		"name": "JRios",
+		"url": "https://github.com/J-Rios"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/J-Rios/Arduino_uTLGBotLib"
+	},
+	"version": "1.0",
+	"frameworks": "arduino",
+	"platforms": ["espressif8266", "espressif32"]
+}
