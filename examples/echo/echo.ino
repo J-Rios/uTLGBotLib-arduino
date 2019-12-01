@@ -1,3 +1,10 @@
+// Example: echo
+// Description: 
+//   Bot that response to any received text message with the same text received (echo messages).
+//   It gives you a basic idea of how to receive and send messages.
+// Date: 01/12/20219
+
+/**************************************************************************************************/
 
 /* Libraries */
 
@@ -26,9 +33,6 @@
 // Telegram Bot Token (Get from Botfather)
 #define TLG_TOKEN "XXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-// Debug Telegram Chat
-#define TLG_CHAT_ID "-1001162829058"
-
 /**************************************************************************************************/
 
 /* Functions Prototypes */
@@ -55,7 +59,7 @@ void setup(void)
     wifi_init_stat();
 
     // Wait WiFi connection
-	Serial.println("Waiting for WiFi connection.");
+    Serial.println("Waiting for WiFi connection.");
     while(!wifi_handle_connection())
     {
         Serial.println(".");
@@ -64,9 +68,6 @@ void setup(void)
 
     // Bot getMe command
     Bot.getMe();
-
-	// Bot send a hello message to debug chat
-    Bot.sendMessage(TLG_CHAT_ID, "<b>Hello</b>", "HTML", false, false);
 }
 
 void loop()
@@ -82,38 +83,10 @@ void loop()
     // Test Bot getUpdate command and receive messages
     while(Bot.getUpdates())
     {
-        Serial.println("-----------------------------------------");
-        Serial.println("Received message.");
-
-        Serial.printf("  From chat ID: %s\n", Bot.received_msg.chat.id);
-        Serial.printf("  From chat type: %s\n", Bot.received_msg.chat.type);
-        Serial.printf("  From chat alias: %s\n", Bot.received_msg.chat.username);
-        Serial.printf("  From chat name: %s %s\n", Bot.received_msg.chat.first_name, 
-            Bot.received_msg.chat.last_name);
-        Serial.printf("  From chat title: %s\n", Bot.received_msg.chat.title);
-        if(Bot.received_msg.chat.all_members_are_administrators)
-            Serial.println("  From chat where all members are admins.");
-        else
-            Serial.println("  From chat where not all members are admins.");
-        
-        Serial.printf("  From user ID: %s\n", Bot.received_msg.from.id);
-        Serial.printf("  From user alias: %s\n", Bot.received_msg.from.username);
-        Serial.printf("  From user name: %s %s\n", Bot.received_msg.from.first_name, 
-            Bot.received_msg.from.last_name);
-        Serial.printf("  From user with language code: %s\n", Bot.received_msg.from.language_code);
-        if(Bot.received_msg.from.is_bot)
-            Serial.println("  From user that is a Bot.");
-        else
-            Serial.println("  From user that is not a Bot.");
-        
-        Serial.printf("  Message ID: %d\n", Bot.received_msg.message_id);
-        Serial.printf("  Message sent date (UNIX epoch time): %ul\n", Bot.received_msg.date);
-        Serial.printf("  Text: %s\n", Bot.received_msg.text);
-        Serial.printf("-----------------------------------------\n");
-
         // Send an echo message back
         Bot.sendMessage(Bot.received_msg.chat.id, Bot.received_msg.text);
 
+        // Feed the Watchdog
         yield();
     }
 
