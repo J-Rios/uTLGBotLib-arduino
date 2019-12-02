@@ -2,8 +2,8 @@
 // File: multihttpsclient_arduino.h
 // Description: Multiplatform HTTPS Client implementation for ESP32 Arduino Framework.
 // Created on: 11 may. 2019
-// Last modified date: 30 nov. 2019
-// Version: 1.0.0
+// Last modified date: 02 dec. 2019
+// Version: 1.0.1
 /**************************************************************************************************/
 
 #if defined(ARDUINO)
@@ -56,6 +56,7 @@ class MultiHTTPSClient
     public:
         // Public Methods
         MultiHTTPSClient(char* cert_https_api_telegram_org);
+        void set_debug(const bool debug);
         int8_t connect(const char* host, uint16_t port);
         void disconnect(void);
         bool is_connected(void);
@@ -70,6 +71,7 @@ class MultiHTTPSClient
         WiFiClientSecure* _client;
         char* _cert_https_api_telegram_org;
         bool _connected;
+        bool _debug;
         
         // Private Methods
         bool init(void);

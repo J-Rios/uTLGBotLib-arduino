@@ -2,7 +2,7 @@
 // Description: 
 //   Bot that shows all received messages data through Serial.
 //   It shows you all data that is received and can be use from any received message.
-// Date: 01/12/20219
+// Date: 02/12/20219
 
 /**************************************************************************************************/
 
@@ -33,6 +33,9 @@
 // Telegram Bot Token (Get from Botfather)
 #define TLG_TOKEN "XXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
+// Enable Bot debug level (0 - None; 1 - Bot Level; 2 - Bot+HTTPS Level)
+#define DEBUG_LEVEL_UTLGBOT 0
+
 /**************************************************************************************************/
 
 /* Functions Prototypes */
@@ -53,6 +56,10 @@ uTLGBot Bot(TLG_TOKEN);
 
 void setup(void)
 {
+    // Enable Bot debug
+    Bot.set_debug(DEBUG_LEVEL_UTLGBOT);
+
+    // Initialize Serial
     Serial.begin(115200);
 
     // Initialize WiFi station connection
@@ -83,7 +90,7 @@ void loop()
     // Test Bot getUpdate command and receive messages
     while(Bot.getUpdates())
     {
-        Serial.println("-----------------------------------------");
+        Serial.println("\n-----------------------------------------");
         Serial.println("Received message.");
 
         Serial.printf("  From chat ID: %s\n", Bot.received_msg.chat.id);

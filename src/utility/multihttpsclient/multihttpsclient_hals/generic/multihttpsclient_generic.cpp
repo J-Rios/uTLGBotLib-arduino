@@ -2,8 +2,8 @@
 // File: multihttpsclient_generic.cpp
 // Description: Multiplatform HTTPS Client implementation for Generic systems (Windows and Linux).
 // Created on: 11 may. 2019
-// Last modified date: 30 nov. 2019
-// Version: 1.0.0
+// Last modified date: 02 dec. 2019
+// Version: 1.0.1
 /**************************************************************************************************/
 
 #if defined(WIN32) || defined(_WIN32) || defined(__linux__)
@@ -18,9 +18,9 @@
 
 /* Macros */
 
-#define _print(x) do { printf("%s", x); } while(0)
-#define _println(x) do { printf("%s", x); printf("\n"); } while(0)
-#define _printf(...) do { printf(__VA_ARGS__); } while(0)
+#define _print(x) do { if(_debug) printf("%s", x); } while(0)
+#define _println(x) do { if(_debug) printf("%s\n", x); } while(0)
+#define _printf(...) do { if(_debug) printf(__VA_ARGS__); } while(0)
 
 #define F(x) x
 #define PSTR(x) x
@@ -46,6 +46,7 @@ clock_t _millis_t0 = clock();
 // MultiHTTPSClient constructor, initialize and setup secure client with the certificate
 MultiHTTPSClient::MultiHTTPSClient(char* cert_https_api_telegram_org)
 {
+    _debug = false;
     _connected = false;
     _cert_https_api_telegram_org = cert_https_api_telegram_org;
 
@@ -62,6 +63,12 @@ MultiHTTPSClient::~MultiHTTPSClient(void)
 /**************************************************************************************************/
 
 /* Public Methods */
+
+// Enable/Disable Debug Prints
+void MultiHTTPSClient::set_debug(const bool debug)
+{
+    _debug = debug;
+}
 
 // Make HTTPS client connection to server
 int8_t MultiHTTPSClient::connect(const char* host, uint16_t port)

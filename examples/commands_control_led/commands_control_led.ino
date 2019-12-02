@@ -3,7 +3,7 @@
 //   Bot to control a LED through telegram commands.
 //   It gives you an idea of how to detect specific words from user message and response to it.
 //   Commands implemented are /start /help /ledon /ledoff /ledstatus
-// Date: 01/12/20219
+// Date: 02/12/20219
 
 /**************************************************************************************************/
 
@@ -34,6 +34,9 @@
 
 // Telegram Bot Token (Get from Botfather)
 #define TLG_TOKEN "XXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+// Enable Bot debug level (0 - None; 1 - Bot Level; 2 - Bot+HTTPS Level)
+#define DEBUG_LEVEL_UTLGBOT 0
 
 // Board Led Pin
 #define PIN_LED 13
@@ -77,6 +80,9 @@ uint8_t led_status;
 
 void setup(void)
 {
+    // Enable Bot debug
+    Bot.set_debug(DEBUG_LEVEL_UTLGBOT);
+
     // Initialize Serial
     Serial.begin(115200);
 
@@ -115,7 +121,7 @@ void loop()
     {
         // Show received message text
         Serial.println("");
-        Serial.println("  Received message:");
+        Serial.println("Received message:");
         Serial.println(Bot.received_msg.text);
         Serial.println("");
 
@@ -139,6 +145,10 @@ void loop()
             // Turn on LED
             led_status = 1;
             digitalWrite(PIN_LED, HIGH);
+
+            // Show command reception through Serial
+            Serial.println("Command /ledon received.");
+            Serial.println("Turning on the LED.");
 
             // Send a Telegram message to notify that the LED has been turned on
             Bot.sendMessage(Bot.received_msg.chat.id, "Led turned on.");

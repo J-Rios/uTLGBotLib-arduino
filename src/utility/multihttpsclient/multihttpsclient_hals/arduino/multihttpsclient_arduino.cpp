@@ -2,8 +2,8 @@
 // File: multihttpsclient_arduino.cpp
 // Description: Multiplatform HTTPS Client implementation for ESP32 Arduino Framework.
 // Created on: 11 may. 2019
-// Last modified date: 30 nov. 2019
-// Version: 1.0.0
+// Last modified date: 02 dec. 2019
+// Version: 1.0.1
 /**************************************************************************************************/
 
 #if defined(ARDUINO)
@@ -18,9 +18,9 @@
 
 /* Macros */
 
-#define _print(x) do { Serial.print(x); } while(0)
-#define _println(x) do { Serial.println(x); } while(0)
-#define _printf(...) do { Serial.printf(__VA_ARGS__); } while(0)
+#define _print(x) do { if(_debug) Serial.print(x); } while(0)
+#define _println(x) do { if(_debug) Serial.println(x); } while(0)
+#define _printf(...) do { if(_debug) Serial.printf(__VA_ARGS__); } while(0)
 #define sscanf_P(...) do { sscanf(__VA_ARGS__); } while(0)
 
 #define _millis_setup() 
@@ -34,6 +34,7 @@
 // MultiHTTPSClient constructor, initialize and setup secure client with the certificate
 MultiHTTPSClient::MultiHTTPSClient(char* cert_https_api_telegram_org)
 {
+    _debug = false;
     _connected = false;
     _cert_https_api_telegram_org = cert_https_api_telegram_org;
 
@@ -43,6 +44,12 @@ MultiHTTPSClient::MultiHTTPSClient(char* cert_https_api_telegram_org)
 /**************************************************************************************************/
 
 /* Public Methods */
+
+// Enable/Disable Debug Prints
+void MultiHTTPSClient::set_debug(const bool debug)
+{
+    _debug = debug;
+}
 
 // Make HTTPS client connection to server
 int8_t MultiHTTPSClient::connect(const char* host, uint16_t port)

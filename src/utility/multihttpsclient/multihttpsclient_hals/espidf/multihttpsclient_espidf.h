@@ -2,8 +2,8 @@
 // File: multihttpsclient_espidf.h
 // Description: Multiplatform HTTPS Client implementation for ESP32 ESPIDF Framework.
 // Created on: 11 may. 2019
-// Last modified date: 30 nov. 2019
-// Version: 1.0.0
+// Last modified date: 02 dec. 2019
+// Version: 1.0.1
 /**************************************************************************************************/
 
 #if defined(ESP_IDF)
@@ -55,6 +55,7 @@ class MultiHTTPSClient
     public:
         // Public Methods
         MultiHTTPSClient(const uint8_t* tlg_api_ca_pem_start, const uint8_t* tlg_api_ca_pem_end);
+        void set_debug(const bool debug);
         int8_t connect(const char* host, uint16_t port);
         void disconnect(void);
         bool is_connected(void);
@@ -71,6 +72,7 @@ class MultiHTTPSClient
         struct esp_tls* _tls;
         esp_tls_cfg_t* _tls_cfg;
         bool _connected;
+        bool _debug;
         
         // Private Methods
         bool init(void);

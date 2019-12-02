@@ -2,7 +2,7 @@
 // Description: 
 //   Bot that response to any received text message with the same text received (echo messages).
 //   It gives you a basic idea of how to receive and send messages.
-// Date: 01/12/20219
+// Date: 02/12/20219
 
 /**************************************************************************************************/
 
@@ -33,6 +33,9 @@
 // Telegram Bot Token (Get from Botfather)
 #define TLG_TOKEN "XXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
+// Enable Bot debug level (0 - None; 1 - Bot Level; 2 - Bot+HTTPS Level)
+#define DEBUG_LEVEL_UTLGBOT 0
+
 /**************************************************************************************************/
 
 /* Functions Prototypes */
@@ -53,6 +56,10 @@ uTLGBot Bot(TLG_TOKEN);
 
 void setup(void)
 {
+    // Enable Bot debug
+    Bot.set_debug(DEBUG_LEVEL_UTLGBOT);
+
+    // Initialize Serial
     Serial.begin(115200);
 
     // Initialize WiFi station connection

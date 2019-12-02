@@ -2,8 +2,8 @@
 // File: multihttpsclient_espidf.cpp
 // Description: Multiplatform HTTPS Client implementation for ESP32 ESPIDF Framework.
 // Created on: 11 may. 2019
-// Last modified date: 30 nov. 2019
-// Version: 1.0.0
+// Last modified date: 02 dec. 2019
+// Version: 1.0.1
 /**************************************************************************************************/
 
 #if defined(ESP_IDF)
@@ -21,9 +21,9 @@
 #define _millis_setup() 
 #define _millis() (unsigned long)(esp_timer_get_time()/1000)
 #define _delay(x) do { vTaskDelay(x/portTICK_PERIOD_MS); } while(0)
-#define _print(x) do { printf("%s", x); } while(0)
-#define _println(x) do { printf("%s", x); printf("\n"); } while(0)
-#define _printf(...) do { printf(__VA_ARGS__); } while(0)
+#define _print(x) do { if(_debug) printf("%s", x); } while(0)
+#define _println(x) do { if(_debug) printf("%s\n", x); } while(0)
+#define _printf(...) do { if(_debug) printf(__VA_ARGS__); } while(0)
 
 #define F(x) x
 #define PSTR(x) x
@@ -40,6 +40,7 @@
 MultiHTTPSClient::MultiHTTPSClient(const uint8_t* tlg_api_ca_pem_start, 
     const uint8_t* tlg_api_ca_pem_end)
 {
+    _debug = false;
     _connected = false;
     _tlg_api_ca_pem_start = tlg_api_ca_pem_start;
     _tlg_api_ca_pem_end = tlg_api_ca_pem_end;
@@ -50,6 +51,12 @@ MultiHTTPSClient::MultiHTTPSClient(const uint8_t* tlg_api_ca_pem_start,
 /**************************************************************************************************/
 
 /* Public Methods */
+
+// Enable/Disable Debug Prints
+void MultiHTTPSClient::set_debug(const bool debug)
+{
+    _debug = debug;
+}
 
 // Make HTTPS client connection to server
 int8_t MultiHTTPSClient::connect(const char* host, uint16_t port)
