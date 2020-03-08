@@ -5,6 +5,9 @@ Micro Telegram Bot Library is a lightweight C++ library implementation that use 
 
 ## Notes
 
+- This is a specific Arduino library modified from original uTLGBotLib due Arduino IDE build restrictions. Main change is that mbedtls of multihttpsclient library has been removed to avoid compiling conflicts. If you want to use this library in platformio for ESP-IDF, Arduino or Native use, please go and use the original full library:
+https://github.com/J-Rios/uTLGBotLib
+
 - Due library target embedded devices such microcontrollers, it MUST be take a lot of care in memory usage, from library size to safety use.
 
 - To avoid ram memory fragmentation and stack-heap collisions, the library doesn't use dynamic memory in non Native (Windows/Linux) platforms (ESP8266 and ESP32).
