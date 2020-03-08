@@ -1,10 +1,12 @@
-// Example: commands_control_led
+/**************************************************************************************************/
+// Example: echobot
 // Description: 
 //   Bot to control a LED through telegram commands.
 //   It gives you an idea of how to detect specific words from user message and response to it.
 //   Commands implemented are /start /help /ledon /ledoff /ledstatus
-// Date: 02/12/20219
-
+// Created on: 21 apr. 2019
+// Last modified date: 21 apr. 2019
+// Version: 1.0.0
 /**************************************************************************************************/
 
 /* Libraries */
