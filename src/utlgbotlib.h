@@ -138,13 +138,16 @@ class uTLGBot
             ~uTLGBot(void);
         #endif
         void set_debug(const uint8_t debug_level);
+        void set_token(const char* token);
         uint8_t connect(void);
         void disconnect(void);
         bool is_connected(void);
         uint8_t getMe(void);
         uint8_t sendMessage(const char* chat_id, const char* text, const char* parse_mode="", 
             bool disable_web_page_preview=false, bool disable_notification=false, 
-            uint64_t reply_to_message_id=0);
+            uint64_t reply_to_message_id=0, const char* reply_markup="");
+        uint8_t sendReplyKeyboardMarkup(const char* chat_id, const char* text, 
+            const char* keyboard);
         uint8_t getUpdates(void);
 
     private:
