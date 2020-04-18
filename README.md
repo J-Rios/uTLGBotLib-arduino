@@ -19,3 +19,26 @@ https://github.com/J-Rios/uTLGBotLib
 - Sub-library multihttpsclient uses [mbedtls library](https://github.com/ARMmbed/mbedtls) to handle HTTPS requests in Native (Windows and Linux) systems.
 
 - uTLGBotLib is a generic library, for that reason, to add support of a new device/system, you just need to specify the expected print() macros in utlgbotlib.cpp and create specific files in multihttpsclient library to implement the HTTP requests for this device/system.
+
+- You can set debug levels from 0 to 2:
+```
+Bot.set_debug(0); // No debug msgs
+Bot.set_debug(1); // Bot debug msgs
+Bot.set_debug(2); // Bot+HTTPS debug msgs
+```
+
+- Global define "UTLGBOT_NO_DEBUG" to disable build debug prints and save some flash and sram memory usage.
+
+- Global define "UTLGBOT_MEMORY_LEVEL" with values 0 to 5, to set library build memory usage level. It allows to reduce library flash and sram memory needs by reducing HTTPS response buffer length and maximum telegram text messages length buffer. 
+```
+-DUTLGBOT_MEMORY_LEVEL=0 // Max TLG msgs:  128 chars
+-DUTLGBOT_MEMORY_LEVEL=1 // Max TLG msgs:  256 chars
+-DUTLGBOT_MEMORY_LEVEL=2 // Max TLG msgs:  512 chars
+-DUTLGBOT_MEMORY_LEVEL=3 // Max TLG msgs: 1024 chars
+-DUTLGBOT_MEMORY_LEVEL=4 // Max TLG msgs: 2048 chars
+-DUTLGBOT_MEMORY_LEVEL=5 // Max TLG msgs: 4097 chars (telegram max msg length)
+```
+
+- Defines must be passed to compiler by flag (-DUTLGBOT_NO_DEBUG -DUTLGBOT_MEMORY_LEVEL=2). Note that define in source code won't work as expected due utlgbot.cpp is compiled independent of main.cpp and that cause different definitions of memory levels from each file compiled.
+
+- Arduino IDE doesn't support a simple way to use global defines, so don't expect this previous characteristics to be used on it (if you want to, maybe try to add them using "build.extra_flags" inside core specifica platform.txt file).
