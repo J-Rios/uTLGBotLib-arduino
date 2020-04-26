@@ -41,4 +41,4 @@ Bot.set_debug(2); // Bot+HTTPS debug msgs
 
 - Defines must be passed to compiler by flag (-DUTLGBOT_NO_DEBUG -DUTLGBOT_MEMORY_LEVEL=2). Note that define in source code won't work as expected due utlgbot.cpp is compiled independent of main.cpp and that cause different definitions of memory levels from each file compiled.
 
-- Arduino IDE doesn't support a simple way to use global defines, so don't expect this previous characteristics to be used on it (if you want to, maybe try to add them using "build.extra_flags" inside core specifica platform.txt file).
+- Recommended to use platformio. Arduino IDE doesn't support a simple way to use global defines, so don't expect this previous characteristics to be used on it (if you want to, maybe try to add them using "build.extra_flags" inside core specifica platform.txt file).
